@@ -10,14 +10,14 @@ EXAMPLE=git@github.com:Delaunay/PythonTemplateExample.git
 
 # remove the folders we do not want to copy
 rm -rf .tox
-rm -rf seedproject.egg-info
+rm -rf PythonTemplateExample.egg-info
 rm -rf cifar10.lock
-rm -rf seedproject/__pycache__
-rm -rf seedproject/models/__pycache__
-rm -rf seedproject/tasks/__pycache__
+rm -rf PythonTemplateExample/__pycache__
+rm -rf PythonTemplateExample/models/__pycache__
+rm -rf PythonTemplateExample/tasks/__pycache__
 
 # dest=$(mktemp -d)
-dest=../PythonTemplate
+dest=../PythonTemplateGen
 
 # Get the latest version of the cookiecutter
 git clone $COOKIE $dest
@@ -59,14 +59,14 @@ cat > mappings.json <<- EOM
     [
         ["TemplateExample", "project_name"],
         ["TemplateAuthor", "author"],
-        ["seedlicense", "license"],
-        ["Template@Email.com", "email"],
+        ["TemplateLicense", "license"],
+        ["TemplateEmail", "email"],
         ["TemplateDescription", "description"],
         ["1234", "copyright"],
-        ["http://template.url/test", "url"],
+        ["TemplateUrl", "url"],
         ["0.0.1", "version"],
-        ["TemplateGithub", "github_nickname"],
-        ["http://template.url/test", "github_repo"],
+        ["TemplateGithub", "github"],
+        ["TemplateRepo", "github_repo"]
     ]
 EOM
 
@@ -77,11 +77,10 @@ jq -c '.[]' mappings.json | while read i; do
     echo "Replacing $oldname by $newname"
     find $COOKIED -type f -print0 | xargs -0 sed -i -e "s/$oldname/\{\{cookiecutter\.$newname\}\}/g"
 done
+rm -rf mappings.json
 
 # Move project folder with its new name
-rsync -av --remove-source-files --progress $COOKIED/seedproject/ $COOKIED/'{{cookiecutter.project_name}}'/
-
-rm -rf mappings.json
+rsync -av --remove-source-files --progress $COOKIED/TemplateExample/ $COOKIED/'{{cookiecutter.project_name}}'/
 
 # Push the change
 #   use the last commit message of this repository 

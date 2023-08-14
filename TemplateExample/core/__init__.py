@@ -8,11 +8,11 @@ import importlib_resources
 
 __descr__ = "TemplateDescription"
 __version__ = "0.0.1"
-__license__ = "BSD 3-Clause License"
+__license__ = "TemplateLicense"
 __author__ = "TemplateAuthor"
-__author_email__ = "Template@Email.com"
+__author_email__ = "TemplateEmail"
 __copyright__ = "1234 TemplateAuthor"
-__url__ = "http://template.url/test"
+__url__ = "TemplateUrl"
 
 
 def discover_plugins(module):

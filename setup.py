@@ -25,8 +25,8 @@ if __name__ == "__main__":
         description="TemplateDescription",
         long_description=(Path(__file__).parent / "README.rst").read_text(),
         author="TemplateAuthor",
-        author_email="Template@Email.com",
-        license="BSD 3-Clause License",
+        author_email="TemplateEmail",
+        license="TemplateLicense",
         url="https://TemplateExample.readthedocs.io",
         classifiers=[
             "License :: OSI Approved :: BSD License",
