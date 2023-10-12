@@ -5,8 +5,11 @@ set -evx
 #
 # Generate a cookiecutter version of this repository
 #
-COOKIE=git@github.com:kiwi-lang/PythonTemplate.git
-EXAMPLE=git@github.com:Delaunay/PythonTemplateExample.git
+COOKIE=https://github.com/kiwi-lang/PythonTemplate.git
+EXAMPLE=https://github.com/Delaunay/PythonTemplateExample.git
+
+git config --global user.email "GithubAction@example.com"
+git config --global user.name "GithubAction"
 
 # remove the folders we do not want to copy
 rm -rf .tox
@@ -50,6 +53,7 @@ EOM
 
 # Remove the things we do not need in the cookie
 rm -rf $COOKIED/scripts/generate_cookie.sh
+rm -rf $COOKIED/.github/workflows/openpr.yaml
 rm -rf $COOKIED/.git
  
 # Find the instance of all the placeholder variables that

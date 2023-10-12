@@ -1,6 +1,9 @@
 global-exclude *.pyc
 global-exclude __pycache__
-recursive-include TemplateExample/* *.json
+
+recursive-include TemplateExample *.json
+recursive-include TemplateExample *.py
+
 include LICENSE
 include requirements.txt
 
