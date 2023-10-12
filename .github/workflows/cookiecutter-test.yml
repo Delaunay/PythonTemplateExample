@@ -1,0 +1,58 @@
+name: cookiecutter-tests
+
+on:
+  push:
+  workflow_dispatch:
+  # Runs every sunday
+  schedule:
+      - cron: '0 0 * * SUN'
+
+
+jobs:
+  cookiecutter-compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+
+      - name: Install tools
+        run: |
+          pip install cookiecutter
+
+      - name: Run Cookiecutter
+        run: |
+          cookiecutter -f --no-input https://github.com/kiwi-lang/PythonTemplate
+
+      - name: Install dependencies
+        run: |
+          cd myproject
+          python -m pip install --upgrade pip
+          pip install virtualenv
+          python -m venv ~/env
+          source ~/env/bin/activate
+          pip install tox
+          make install
+
+      - name: tests-doc
+        run: |
+          cd myproject
+          git config --global user.email "you@example.com"
+          git config --global user.name "Your Name"
+          git init
+          git add --all
+          git commit -m "-"
+          source ~/env/bin/activate
+          tox -e py
+          tox -e docs
+          tox -e pylint
+          tox -e packaging
+          tox -e build
+          tox -e checks
